@@ -1,1 +1,99 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  margin: 0px;
+  padding: 0px;
+}
+*:focus {
+  outline: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.bg-main {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+// Responsive Layout
+@media (max-width: 992px) {
+  .parent {
+    flex-direction: column !important;
+  }
+
+  .left,
+  .right {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 72px;
+  }
+
+  .day {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+
+  .hours {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .top {
+    flex-direction: column;
+  }
+
+  .top .w-50 {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+
+  .search {
+    flex-direction: column;
+    gap: 10px;
+    width: 100% !important;
+  }
+
+  .search input {
+    width: 100% !important;
+  }
+
+  .search button {
+    position: static;
+    transform: none;
+    margin-top: 5px;
+  }
+}

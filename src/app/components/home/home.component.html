@@ -1,0 +1,199 @@
+<section *ngIf="display; else loading">
+  <div class="w-100 min-vh-100 d-flex flex-lg-row flex-column g-0 p-2 parent">
+    <div
+      class="left p-3 text-white shadow rounded d-flex flex-column justify-content-between"
+    >
+      <div
+        class="d-flex align-items-center justify-content-between border-bottom pb-2"
+      >
+        <div
+          class="search w-50 d-flex align-items-center justify-content-between"
+        >
+          <input
+            [(ngModel)]="city"
+            (keyup.enter)="search()"
+            class="w-100 h-100 bg-main shadow"
+            type="search "
+            [value]="
+              forecastWeather?.location?.name +
+              ',' +
+              forecastWeather?.location?.region +
+              ',' +
+              forecastWeather?.location?.country
+            "
+          />
+          <button class="shadow" (click)="search()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+        <p class="fs-4 fw-lighter shadow p-2 rounded">
+          {{ forecastWeather.location.localtime }}
+        </p>
+      </div>
+      <div>
+        <h1>
+          {{ forecastWeather.current.temp_c }}<sup class="fw-lighter">°C</sup>
+        </h1>
+        <div class="d-flex align-items-center">
+          <h2>{{ forecastWeather.current.condition.text }}</h2>
+          <img
+            class="ms-3"
+            [src]="forecastWeather.current.condition.icon"
+            [alt]="forecastWeather.current.condition.text"
+          />
+        </div>
+        <p class="fs-5">
+          <i class="fas fa-thermometer-half icon"></i> Feels Like
+          {{ forecastWeather.current.feelslike_c
+          }}<span class="fw-lighter">°C</span>
+        </p>
+        <p class="fs-5">
+          <i class="fa-solid fa-wind"></i>
+          {{ forecastWeather.current.wind_dir | winddir }}
+          {{ forecastWeather.current.wind_kph }} KPH
+        </p>
+        <p class="fs-5">
+          <i class="fas fa-gauge icon"></i>
+          Pressure
+          {{ forecastWeather.current.pressure_mb }} MB
+        </p>
+        <p class="fs-5">
+          <i class="fas fa-droplet icon"></i> Humidity
+          {{ forecastWeather.current.humidity }}%
+        </p>
+      </div>
+      <div class="hours pb-3 border-top pt-2">
+        <div
+          class="item"
+          *ngFor="
+            let i of forecastWeather.forecast.forecastday[0].hour;
+            let index = index
+          "
+        >
+          <p>
+            {{
+              forecastWeather.forecast.forecastday[0].hour[index].time
+                | gethoure
+            }}
+          </p>
+          <hr />
+          <img
+            [src]="
+              forecastWeather.forecast.forecastday[0].hour[index].condition.icon
+            "
+            [alt]="
+              forecastWeather.forecast.forecastday[0].hour[index].condition.text
+            "
+          />
+          <p>
+            {{ forecastWeather.forecast.forecastday[0].hour[index].temp_c
+            }}<span class="fw-lighter">°C</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="right p-3 shadow rounded text-white">
+      <div class="top d-flex w-100 border-bottom pb-2">
+        <div class="w-50">
+          <div
+            class="d-flex align-items-center justify-content-between w-75 m-auto shadow rounded px-2 ele mb-2"
+          >
+            <span>UV</span>
+            <span class="fs-5">{{ forecastWeather.current.uv }}</span>
+          </div>
+          <div
+            class="d-flex align-items-center justify-content-between w-75 m-auto shadow rounded px-2 ele mb-2"
+          >
+            <span>Cloud</span>
+            <span class="fs-5">{{ forecastWeather.current.cloud }}</span>
+          </div>
+          <div
+            class="d-flex align-items-center justify-content-between w-75 m-auto shadow rounded px-2 ele mb-2"
+          >
+            <span>CO</span>
+            <span class="fs-5">{{
+              forecastWeather.current.air_quality.co
+            }}</span>
+          </div>
+        </div>
+        <div class="w-50">
+          <div
+            class="d-flex align-items-center justify-content-between w-75 m-auto shadow rounded px-2 ele mb-2"
+          >
+            <span>NO<sub>2</sub></span>
+            <span class="fs-5">{{
+              forecastWeather.current.air_quality.no2
+            }}</span>
+          </div>
+          <div
+            class="d-flex align-items-center justify-content-between w-75 m-auto shadow rounded px-2 ele mb-2"
+          >
+            <span>O<sub>3</sub></span>
+            <span class="fs-5">{{
+              forecastWeather.current.air_quality.o3
+            }}</span>
+          </div>
+          <div
+            class="d-flex align-items-center justify-content-between w-75 m-auto shadow rounded px-2 ele mb-2"
+          >
+            <span>SO<sub>2</sub></span>
+            <span class="fs-5">{{
+              forecastWeather.current.air_quality.so2
+            }}</span>
+          </div>
+        </div>
+      </div>
+      <p class="fs-4 text-center title my-1">The Next Days Forecast</p>
+      <div class="buttom">
+        <div class="dayes">
+          <div
+            class="day rounded shadow mt-2"
+            *ngFor="
+              let i of forecastWeather.forecast.forecastday;
+              let index = index
+            "
+          >
+            <img
+              [src]="
+                forecastWeather.forecast.forecastday[index + 1].day.condition
+                  .icon
+              "
+              [alt]="
+                forecastWeather.forecast.forecastday[index + 1].day.condition
+                  .text
+              "
+            />
+            <div class="d-flex flex-column text-center">
+              <span>{{
+                forecastWeather.forecast.forecastday[index + 1].date
+              }}</span>
+              <span>{{
+                forecastWeather.forecast.forecastday[index + 1].day.condition
+                  .text
+              }}</span>
+            </div>
+            <div class="d-flex flex-column text-end">
+              <span
+                >{{
+                  forecastWeather.forecast.forecastday[index + 1].day.maxtemp_c
+                }}°C
+              </span>
+              <span
+                >{{
+                  forecastWeather.forecast.forecastday[index + 1].day.mintemp_c
+                }}°C</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #loading>
+  <div
+    class="w-100 min-vh-100 bg-main d-flex align-items-center justify-content-center fs-1"
+  >
+    <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+  </div>
+</ng-template>
